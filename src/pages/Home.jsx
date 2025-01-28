@@ -12,7 +12,6 @@ import { useRef, useState } from "react";
 import validator from "validator";
 import { useNavigate } from "react-router-dom";
 import Errors from "../UI/alerts/Errors";
-import Input from "../UI/form/Input";
 
 const Home = () => {
   const navigate = useNavigate();
