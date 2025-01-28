@@ -5,7 +5,7 @@ const MainNavBar = () => {
   return (
     <>
       <nav className="absolute top-0 right-0 p-7">
-        <IconNavigate page={"/stats"} icon={faChartSimple} />
+        <IconNavigate page={"/general"} icon={faChartSimple} />
       </nav>
     </>
   );
