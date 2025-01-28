@@ -1,4 +1,4 @@
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
+import { faChartSimple, faPlay } from "@fortawesome/free-solid-svg-icons";
 import TitleAS from "../UI/texts/TitleAS";
 import SloganAS from "../UI/texts/SloganAS";
 import BtnNavigate from "../UI/buttons/BtnNavigate";
@@ -12,7 +12,7 @@ const Landing = () => {
         <div className="p-6 text-center">
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
-          <BtnNavigate page={"/home"} text={"Start"} />
+          <BtnNavigate icon={faPlay} page={"/home"} text={"Start"} />
         </div>
       </section>
       <Footer year={"2025"} />

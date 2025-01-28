@@ -1,4 +1,4 @@
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faLink } from "@fortawesome/free-solid-svg-icons";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
@@ -13,21 +13,56 @@ const AllLinks = () => {
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <ul className="my-8 -mx-8">
-            <li>
-              <BtnNavigate page={"/details"} text={"Short Link 1"} />
-              <BtnNavigate page={"/details"} text={"Short Link 2"} />
+            <li className="flex my-2">
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 1"}
+              />
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 2"}
+              />
             </li>
-            <li>
-              <BtnNavigate page={"/details"} text={"Short Link 3"} />
-              <BtnNavigate page={"/details"} text={"Short Link 4"} />
+
+            <li className="flex my-2">
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 3"}
+              />
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 4"}
+              />
             </li>
-            <li>
-              <BtnNavigate page={"/details"} text={"Short Link 5"} />
-              <BtnNavigate page={"/details"} text={"Short Link 6"} />
+
+            <li className="flex my-2">
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 5"}
+              />
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 6"}
+              />
             </li>
-            <li>
-              <BtnNavigate page={"/details"} text={"Short Link 7"} />
-              <BtnNavigate page={"/details"} text={"Short Link 8"} />
+
+            <li className="flex my-2">
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 7"}
+              />
+              <BtnNavigate
+                icon={faLink}
+                page={"/details"}
+                text={"Short Link 8"}
+              />
             </li>
           </ul>
           <IconNavigate page={"/general"} icon={faChevronLeft} />

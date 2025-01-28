@@ -1,7 +1,10 @@
 import BtnNavigate from "../UI/buttons/BtnNavigate";
 import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import Footer from "../components/Footer";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import Count from "../UI/lists/Count";
@@ -14,7 +17,11 @@ const Stats = () => {
         <div className="p-6 text-center">
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
-          <BtnNavigate page={"/links"} text={"Show All Links"} />
+          <BtnNavigate
+            icon={faMagnifyingGlass}
+            page={"/links"}
+            text={"Show All Links"}
+          />
           <ul className="my-8 -mx-8">
             <Count text={"Total times clicked"} count={0} />
             <Count text={"Short links created"} count={0} />
