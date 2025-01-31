@@ -10,7 +10,7 @@ import SloganAS from "../UI/texts/SloganAS";
 import Footer from "../components/Footer";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import IconCopy from "../UI/buttons/IconCopy";
-import ShortURL from "../UI/URL/ShortURL";
+import ShortURL from "../UI/URL/URL";
 import { useState } from "react";
 import Copied from "../UI/alerts/Copied";
 
