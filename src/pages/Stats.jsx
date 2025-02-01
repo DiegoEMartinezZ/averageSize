@@ -9,12 +9,14 @@ import Footer from "../components/Footer";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import Count from "../UI/lists/Count";
 import Date from "../UI/lists/Date";
+import PageView from "../UI/texts/PageView";
 
 const Stats = () => {
   return (
     <>
       <section className="flex items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
+          <PageView text={"General Stats"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <BtnNavigate

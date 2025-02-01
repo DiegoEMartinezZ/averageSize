@@ -47,7 +47,7 @@ export const ThemeProvider = ({ children }) => {
 
   // Copy the short link created
   const [copied, setCopied] = useState(false);
-  const [shortURL, setShortURL] = useState("hola");
+  const [shortURL, setShortURL] = useState("");
 
   const copyHandler = async () => {
     try {
@@ -59,13 +59,61 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
+  // Btn to show the Original Link of the selected short link
+  const [showLink, setShowLink] = useState(false);
+  const showOriginalLink = () => {
+    setShowLink(!showLink);
+  };
+
+  // Flag to see if the input of the short link can be edited or not
+  const [isDisable, setIsDisable] = useState(true);
+  const editLink = () => {
+    setIsDisable(!isDisable);
+  };
+
+  // Update the short link name, the disable the input
+  const newShortURL = (e) => {
+    setShortURL(e.target.value);
+  };
+
+  // Disable the input when short link is edited
+  const updateLink = () => {
+    setIsDisable(!isDisable);
+  };
+
+  // Delete and not delete the short link
+  const [toDelete, setToDelete] = useState(false);
+  const deleteLink = () => {
+    setToDelete(!toDelete);
+  };
+
+  const deleteShortLink = () => {
+    setToDelete(!toDelete);
+    navigate("/links");
+  };
+
+  const notDeleteShortLink = () => {
+    setToDelete(!toDelete);
+  };
+
   return (
     <ThemeContext.Provider
       value={{
+        newShortURL,
+        isDisable,
+        shortURL,
+        deleteLink,
+        deleteShortLink,
+        notDeleteShortLink,
+        toDelete,
+        updateLink,
+        editLink,
+        showOriginalLink,
         iconHandleView,
         copied,
         copyHandler,
         bigLink,
+        showLink,
         inputRef,
         handleView,
         handleInputSelected,

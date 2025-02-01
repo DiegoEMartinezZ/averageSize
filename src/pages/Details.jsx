@@ -14,69 +14,40 @@ import Footer from "../components/Footer";
 import IconCRUD from "../UI/buttons/IconCRUD";
 import Count from "../UI/lists/Count";
 import Date from "../UI/lists/Date";
-import { useRef, useState } from "react";
 import { faX } from "@fortawesome/free-solid-svg-icons/faX";
 import IconCopy from "../UI/buttons/IconCopy";
 import Copied from "../UI/alerts/Copied";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import URL from "../UI/URL/URL";
+import { useTheme } from "../components/context/ThemeContext";
+import PageView from "../UI/texts/PageView";
+import Paragraph from "../UI/texts/Paragraph";
+import AlertTxt from "../UI/texts/AlertTxt";
 
 const Details = () => {
-  const [showLink, setShowLink] = useState(false);
-  const showOriginalLink = () => {
-    setShowLink(!showLink);
-  };
-
-  const [isDisable, setIsDisable] = useState(true);
-  const editLink = () => {
-    setIsDisable(!isDisable);
-  };
-
-  const [linkUpdated, setLinkUpdated] = useState("www.ShortLink.com");
-  const updateLink = () => {
-    setIsDisable(!isDisable);
-  };
-
-  const [copied, setCopied] = useState(false);
-  const copyHandler = async () => {
-    try {
-      await navigator.clipboard.writeText(linkUpdated);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error("failed to copy text:", error);
-    }
-  };
-
-  const inputRef = useRef(null);
-  const handleInputSelected = () => {
-    if (inputRef.current) {
-      inputRef.current.select();
-    }
-  };
-
-  const newShortURL = (e) => {
-    setLinkUpdated(e.target.value);
-  };
-
-  const [toDelete, setToDelete] = useState(false);
-  const deleteLink = () => {
-    setToDelete(!toDelete);
-  };
-
-  const deleteShortLink = () => {
-    setLinkUpdated("");
-    navigate("/links");
-  };
-
-  const notDeleteShortLink = () => {
-    setToDelete(!toDelete);
-  };
+  const {
+    copyHandler,
+    copied,
+    inputRef,
+    handleInputSelected,
+    showLink,
+    newShortURL,
+    shortURL,
+    deleteLink,
+    updateLink,
+    isDisable,
+    showOriginalLink,
+    deleteShortLink,
+    notDeleteShortLink,
+    toDelete,
+    editLink,
+  } = useTheme();
 
   return (
     <>
       <section className="flex relative items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
+          <PageView text={"Details"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <BtnShow
@@ -86,7 +57,7 @@ const Details = () => {
           {showLink && (
             <URL
               URL={
-                "www.a-really-long-but-really-really-long-link.com www.a-really-long-but-really-really-long-link.com"
+                "www.a-really-long-but-really-really-long-link.com/yes-this-can-be-a-really-long-link "
               }
             />
           )}
@@ -102,12 +73,10 @@ const Details = () => {
                     icon={faTriangleExclamation}
                     className="text-2xl"
                   />
-                  <p className="font-base text-lg">
-                    Are you sure you want to delete this short link?
-                  </p>
-                  <h2 className="py-3 font-medium text-lg">
-                    This action cannot be undone
-                  </h2>
+                  <Paragraph
+                    text={"Are you sure you want to delete this short link?"}
+                  />
+                  <AlertTxt text={"This action cannot be undone"} />
                   <div className="my-3 flex justify-around">
                     <FontAwesomeIcon
                       icon={faCheck}
@@ -127,7 +96,7 @@ const Details = () => {
             <div className="flex-col items-center justify-around flex-nowrap">
               <input
                 ref={inputRef}
-                value={linkUpdated}
+                value={shortURL}
                 type="text"
                 disabled={isDisable}
                 onChange={newShortURL}
@@ -140,7 +109,7 @@ const Details = () => {
                 <div className="absolute -top-28 m-auto right-0 left-0">
                   <Copied
                     icon={faCheck}
-                    text={`${linkUpdated} copied to clipboard!`}
+                    text={`${shortURL} copied to clipboard!`}
                   />
                 </div>
               )}

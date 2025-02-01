@@ -5,7 +5,7 @@ const IconNavigate = ({ page, icon }) => {
   return (
     <>
       <button onClick={() => iconHandleView(page)}>
-        <FontAwesomeIcon icon={icon} />
+        <FontAwesomeIcon icon={icon} className="mb-12" />
       </button>
     </>
   );

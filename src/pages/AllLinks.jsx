@@ -4,12 +4,14 @@ import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
 import Footer from "../components/Footer";
 import BtnNavigate from "../UI/buttons/BtnNavigate";
+import PageView from "../UI/texts/PageView";
 
 const AllLinks = () => {
   return (
     <>
       <section className="flex items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
+          <PageView text={"All Links"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <ul className="my-8 -mx-8">
