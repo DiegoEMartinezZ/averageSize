@@ -8,41 +8,19 @@ import MainNavBar from "../UI/navbars/MainNavbar";
 import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
 import Footer from "../components/Footer";
-import { useRef, useState } from "react";
-import validator from "validator";
-import { useNavigate } from "react-router-dom";
 import Errors from "../UI/alerts/Errors";
+import { useTheme } from "../components/context/ThemeContext";
+import Label from "../UI/form/Label";
 
 const Home = () => {
-  const navigate = useNavigate();
-
-  const [url, setUrl] = useState("");
-  const [error, setError] = useState("");
-
-  const newURL = (e) => {
-    setUrl(e.target.value);
-  };
-
-  const inputRef = useRef(null);
-  const handleInputSelected = () => {
-    if (inputRef.current) {
-      inputRef.current.select();
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validator.isURL(url)) {
-      setError("");
-      navigate("/short");
-      // Continue with program execution here
-    } else {
-      setError("Please enter a valid URL.");
-      setTimeout(() => {
-        setError("");
-      }, 2000);
-    }
-  };
+  const {
+    bigLink,
+    inputRef,
+    handleInputSelected,
+    newURL,
+    handleSubmit,
+    error,
+  } = useTheme();
 
   return (
     <>
@@ -53,13 +31,10 @@ const Home = () => {
           <SloganAS text={"Short link, long reach."} />
           <form onSubmit={handleSubmit}>
             <div className="mt-12">
-              <label className="text-sm font-light">
-                Paste your long URL here:
-              </label>
-
+              <Label text={"Paste the URL to change the size:"} />
               <input
                 type="text"
-                value={url}
+                value={bigLink}
                 ref={inputRef}
                 onChange={newURL}
                 onClick={handleInputSelected}
@@ -78,7 +53,6 @@ const Home = () => {
           </form>
         </div>
       </section>
-
       <Footer year={"2025"} />
     </>
   );

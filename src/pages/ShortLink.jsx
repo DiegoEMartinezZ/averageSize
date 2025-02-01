@@ -11,22 +11,11 @@ import Footer from "../components/Footer";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import IconCopy from "../UI/buttons/IconCopy";
 import ShortURL from "../UI/URL/URL";
-import { useState } from "react";
 import Copied from "../UI/alerts/Copied";
+import { useTheme } from "../components/context/ThemeContext";
 
 const ShortLink = () => {
-  const [copied, setCopied] = useState(false);
-  const [url, setUrl] = useState("www.shortLink.com");
-
-  const copyHandler = async () => {
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error("failed to copy text:", error);
-    }
-  };
+  const { copied, copyHandler } = useTheme();
 
   return (
     <>

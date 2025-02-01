@@ -19,12 +19,9 @@ import { faX } from "@fortawesome/free-solid-svg-icons/faX";
 import IconCopy from "../UI/buttons/IconCopy";
 import Copied from "../UI/alerts/Copied";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
 import URL from "../UI/URL/URL";
 
 const Details = () => {
-  const navigate = useNavigate();
-
   const [showLink, setShowLink] = useState(false);
   const showOriginalLink = () => {
     setShowLink(!showLink);

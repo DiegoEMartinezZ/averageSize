@@ -12,7 +12,7 @@ const Landing = () => {
         <div className="p-6 text-center">
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
-          <BtnNavigate icon={faPlay} page={"/home"} text={"Start"} />
+          <BtnNavigate page={"/home"} icon={faPlay} text={"Start"} />
         </div>
       </section>
       <Footer year={"2025"} />

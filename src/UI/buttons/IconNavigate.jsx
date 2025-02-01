@@ -1,13 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../components/context/ThemeContext";
 const IconNavigate = ({ page, icon }) => {
-  const navigate = useNavigate();
-  const handlerPage = () => {
-    navigate(page);
-  };
+  const { iconHandleView } = useTheme();
   return (
     <>
-      <button onClick={handlerPage}>
+      <button onClick={() => iconHandleView(page)}>
         <FontAwesomeIcon icon={icon} />
       </button>
     </>
