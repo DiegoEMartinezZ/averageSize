@@ -25,7 +25,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Handle to add a new url
-  const [bigLink, setBigLink] = useState("");
+  const [bigLink, setBigLink] = useState("www.original-link.com");
   const newURL = (e) => {
     setBigLink(e.target.value);
   };
@@ -56,6 +56,32 @@ export const ThemeProvider = ({ children }) => {
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
       console.error("failed to copy text:", error);
+    }
+  };
+
+  // Add the short link created
+  const [add, setAdd] = useState(false);
+  const addHandler = () => {
+    console.log("Se agrego el link creado!");
+    setAdd(true);
+    setTimeout(() => {
+      setAdd(false);
+    }, 2000);
+  };
+
+  // Edit the original link
+  const [edit, setEdit] = useState(false);
+
+  const editHandler = (e) => {
+    setEdit(!edit);
+    e.preventDefault();
+    if (validator.isURL(bigLink)) {
+      setError("");
+    } else {
+      setError("Please enter a valid link.");
+      setTimeout(() => {
+        setError("");
+      }, 2000);
     }
   };
 
@@ -112,6 +138,10 @@ export const ThemeProvider = ({ children }) => {
         iconHandleView,
         copied,
         copyHandler,
+        editHandler,
+        edit,
+        add,
+        addHandler,
         bigLink,
         inputRef,
         handleView,

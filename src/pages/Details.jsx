@@ -4,7 +4,6 @@ import {
   faCircleInfo,
   faCopy,
   faPen,
-  faRectangleXmark,
   faTrash,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +22,7 @@ import { useTheme } from "../components/context/ThemeContext";
 import PageView from "../UI/texts/PageView";
 import Paragraph from "../UI/texts/Paragraph";
 import AlertTxt from "../UI/texts/AlertTxt";
+import EditOriginalLink from "../UI/lists/EditOriginalLink";
 
 const Details = () => {
   const {
@@ -40,6 +40,7 @@ const Details = () => {
     toDelete,
     editLink,
     showQR,
+    edit,
   } = useTheme();
 
   return (
@@ -51,17 +52,12 @@ const Details = () => {
           <SloganAS text={"Short link, long reach."} />
 
           <BtnShow text={"QR Code"} handler={showQR} />
-          <ul className="w-auto">
+          <ul className="my-8 -mx-8">
             <Count text={"Times Clicked"} count={0} />
             <Count text={"Unique Visitors"} count={0} />
             <Date text={"Creation Date"} date={"DD-MM-YYYY"} />
             <Date text={"Last Update"} date={"DD-MM-YYYY"} />
-            <div className="flex justify-between flex-nowrap my-5">
-              <li className="font-light text-sm">Original Link</li>
-              <li className="font-bold text-sm">
-                <FontAwesomeIcon icon={faPen} />
-              </li>
-            </div>
+            <EditOriginalLink text={"Original Link"} icon={faPen} />
 
             {toDelete && (
               <section className="absolute top-0 bottom-0 right-0 left-0 bg-amber-100 z-10">
@@ -112,21 +108,23 @@ const Details = () => {
                 </div>
               )}
 
-              <div className="flex justify-around items-center my-2 text-sm">
-                <div className={`${isDisable ? "inline-block" : "hidden"}`}>
-                  <IconCopy icon={faCopy} handler={copyHandler} />
+              {!edit && (
+                <div className="flex justify-around items-center my-2 text-sm">
+                  <div className={`${isDisable ? "inline-block" : "hidden"}`}>
+                    <IconCopy icon={faCopy} handler={copyHandler} />
+                  </div>
+                  {isDisable ? (
+                    <IconCRUD icon={faPen} CRUD={editLink} />
+                  ) : (
+                    <IconCRUD icon={faCheck} CRUD={updateLink} />
+                  )}
+                  {isDisable ? (
+                    <IconCRUD icon={faTrash} CRUD={deleteLink} />
+                  ) : (
+                    <IconCRUD icon={faX} CRUD={editLink} />
+                  )}
                 </div>
-                {isDisable ? (
-                  <IconCRUD icon={faPen} CRUD={editLink} />
-                ) : (
-                  <IconCRUD icon={faCheck} CRUD={updateLink} />
-                )}
-                {isDisable ? (
-                  <IconCRUD icon={faTrash} CRUD={deleteLink} />
-                ) : (
-                  <IconCRUD icon={faX} CRUD={editLink} />
-                )}
-              </div>
+              )}
             </div>
           </ul>
           <IconNavigate page={"/links"} icon={faChevronLeft} />
