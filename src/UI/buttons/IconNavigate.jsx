@@ -4,8 +4,8 @@ const IconNavigate = ({ page, icon }) => {
   const { iconHandleView } = useTheme();
   return (
     <>
-      <button onClick={() => iconHandleView(page)}>
-        <FontAwesomeIcon icon={icon} className="mb-12" />
+      <button onClick={() => iconHandleView(page)} className="cursor-pointer">
+        <FontAwesomeIcon icon={icon} className="" />
       </button>
     </>
   );

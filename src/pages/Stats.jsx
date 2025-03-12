@@ -2,6 +2,7 @@ import BtnNavigate from "../UI/buttons/BtnNavigate";
 import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
 import {
+  faBars,
   faChevronLeft,
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
@@ -16,7 +17,7 @@ const Stats = () => {
     <>
       <section className="flex items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
-          <PageView text={"General Stats"} />
+          <PageView icon={faBars} text={"General Stats"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <BtnNavigate
@@ -24,6 +25,7 @@ const Stats = () => {
             page={"/links"}
             text={"Show All Links"}
           />
+
           <ul className="my-8 -mx-8">
             <Count text={"Total times clicked"} count={0} />
             <Count text={"Short links created"} count={0} />

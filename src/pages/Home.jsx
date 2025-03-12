@@ -31,17 +31,17 @@ const Home = () => {
           <SloganAS text={"Short link, long reach."} />
           <form onSubmit={handleSubmit}>
             <div className="mt-12">
-              <Label text={"Paste the URL to change the size:"} />
+              <Label text={"Paste the URL to be shortened"} />
               <input
                 type="text"
                 value={bigLink}
                 ref={inputRef}
                 onChange={newURL}
                 onClick={handleInputSelected}
-                placeholder="www.example-of-a-long-link.com"
+                placeholder="Enter the link here"
                 className={`${
                   error ? "border-red-400" : "border-black"
-                } border-1 py-1 px-2 w-64 mt-1 mb-3 text-sm rounded-lg text-center`}
+                } border-1 py-1 px-2 mt-1 mb-3 w-10/12 text-sm rounded-lg text-center`}
               />
             </div>
             <BtnNavigate

@@ -11,59 +11,15 @@ const AllLinks = () => {
     <>
       <section className="flex items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
-          <PageView text={"All Links"} />
+          <PageView icon={faLink} text={"My links"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
           <ul className="my-8 -mx-8">
-            <li className="flex my-2">
+            <li className="flex -my-3">
               <BtnNavigate
                 icon={faLink}
                 page={"/details"}
                 text={"Short Link 1"}
-              />
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 2"}
-              />
-            </li>
-
-            <li className="flex my-2">
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 3"}
-              />
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 4"}
-              />
-            </li>
-
-            <li className="flex my-2">
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 5"}
-              />
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 6"}
-              />
-            </li>
-
-            <li className="flex my-2">
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 7"}
-              />
-              <BtnNavigate
-                icon={faLink}
-                page={"/details"}
-                text={"Short Link 8"}
               />
             </li>
           </ul>

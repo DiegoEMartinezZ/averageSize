@@ -47,7 +47,7 @@ export const ThemeProvider = ({ children }) => {
 
   // Copy the short link created
   const [copied, setCopied] = useState(false);
-  const [shortURL, setShortURL] = useState("");
+  const [shortURL, setShortURL] = useState("www.short.com");
 
   const copyHandler = async () => {
     try {
@@ -59,10 +59,11 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
-  // Btn to show the Original Link of the selected short link
-  const [showLink, setShowLink] = useState(false);
-  const showOriginalLink = () => {
-    setShowLink(!showLink);
+  // Btn to show the QR Code of the selected short link
+  const [showQRCode, setShowQRCode] = useState(false);
+
+  const showQR = () => {
+    setShowQRCode(!showQRCode);
   };
 
   // Flag to see if the input of the short link can be edited or not
@@ -108,18 +109,18 @@ export const ThemeProvider = ({ children }) => {
         toDelete,
         updateLink,
         editLink,
-        showOriginalLink,
         iconHandleView,
         copied,
         copyHandler,
         bigLink,
-        showLink,
         inputRef,
         handleView,
         handleInputSelected,
         newURL,
         handleSubmit,
         error,
+        showQR,
+        showQRCode,
       }}
     >
       {children}

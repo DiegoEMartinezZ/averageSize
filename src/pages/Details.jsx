@@ -1,8 +1,10 @@
 import {
   faCheck,
   faChevronLeft,
+  faCircleInfo,
   faCopy,
   faPen,
+  faRectangleXmark,
   faTrash,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +12,6 @@ import BtnShow from "../UI/buttons/BtnShow";
 import IconNavigate from "../UI/buttons/IconNavigate";
 import SloganAS from "../UI/texts/SloganAS";
 import TitleAS from "../UI/texts/TitleAS";
-import Footer from "../components/Footer";
 import IconCRUD from "../UI/buttons/IconCRUD";
 import Count from "../UI/lists/Count";
 import Date from "../UI/lists/Date";
@@ -18,7 +19,6 @@ import { faX } from "@fortawesome/free-solid-svg-icons/faX";
 import IconCopy from "../UI/buttons/IconCopy";
 import Copied from "../UI/alerts/Copied";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import URL from "../UI/URL/URL";
 import { useTheme } from "../components/context/ThemeContext";
 import PageView from "../UI/texts/PageView";
 import Paragraph from "../UI/texts/Paragraph";
@@ -30,42 +30,39 @@ const Details = () => {
     copied,
     inputRef,
     handleInputSelected,
-    showLink,
     newShortURL,
     shortURL,
     deleteLink,
     updateLink,
     isDisable,
-    showOriginalLink,
     deleteShortLink,
     notDeleteShortLink,
     toDelete,
     editLink,
+    showQR,
   } = useTheme();
 
   return (
     <>
       <section className="flex relative items-center justify-center h-screen bg-gray-100">
         <div className="p-6 text-center">
-          <PageView text={"Details"} />
+          <PageView icon={faCircleInfo} text={"Details"} />
           <TitleAS text={"Average Size"} />
           <SloganAS text={"Short link, long reach."} />
-          <BtnShow
-            text={`${showLink ? "Hide original link" : "Show original link"}`}
-            handler={showOriginalLink}
-          />
-          {showLink && (
-            <URL
-              URL={
-                "www.a-really-long-but-really-really-long-link.com/yes-this-can-be-a-really-long-link "
-              }
-            />
-          )}
-          <ul className="my-8 w-auto">
+
+          <BtnShow text={"QR Code"} handler={showQR} />
+          <ul className="w-auto">
             <Count text={"Times Clicked"} count={0} />
             <Count text={"Unique Visitors"} count={0} />
             <Date text={"Creation Date"} date={"DD-MM-YYYY"} />
             <Date text={"Last Update"} date={"DD-MM-YYYY"} />
+            <div className="flex justify-between flex-nowrap my-5">
+              <li className="font-light text-sm">Original Link</li>
+              <li className="font-bold text-sm">
+                <FontAwesomeIcon icon={faPen} />
+              </li>
+            </div>
+
             {toDelete && (
               <section className="absolute top-0 bottom-0 right-0 left-0 bg-amber-100 z-10">
                 <div className="absolute top-64 rounded-lg left-0 right-0 bg-red-400 p-4 mx-12">
@@ -93,7 +90,8 @@ const Details = () => {
               </section>
             )}
 
-            <div className="flex-col items-center justify-around flex-nowrap">
+            <div className="flex-col items-center justify-around flex-nowrap my-10">
+              <h2 className="my-1 text-sm font-medium"> Short link options </h2>
               <input
                 ref={inputRef}
                 value={shortURL}
@@ -102,8 +100,8 @@ const Details = () => {
                 onChange={newShortURL}
                 onClick={handleInputSelected}
                 className={`${
-                  isDisable ? "bg-gray-400" : "bg-green-400"
-                } border-black border-1 p-2 w-auto text-base font-medium tracking-wider rounded-lg text-center`}
+                  isDisable ? "bg-green-200" : "bg-gray-200"
+                } p-1 w-fit m-auto text-sm font-light rounded-lg  text-center`}
               />
               {copied && (
                 <div className="absolute -top-28 m-auto right-0 left-0">
@@ -114,7 +112,10 @@ const Details = () => {
                 </div>
               )}
 
-              <div className="flex justify-around items-center my-4">
+              <div className="flex justify-around items-center my-2 text-sm">
+                <div className={`${isDisable ? "inline-block" : "hidden"}`}>
+                  <IconCopy icon={faCopy} handler={copyHandler} />
+                </div>
                 {isDisable ? (
                   <IconCRUD icon={faPen} CRUD={editLink} />
                 ) : (
@@ -125,15 +126,11 @@ const Details = () => {
                 ) : (
                   <IconCRUD icon={faX} CRUD={editLink} />
                 )}
-                <div className={`${isDisable ? "inline-block" : "hidden"}`}>
-                  <IconCopy icon={faCopy} handler={copyHandler} />
-                </div>
               </div>
             </div>
           </ul>
           <IconNavigate page={"/links"} icon={faChevronLeft} />
         </div>
-        <Footer year={2025} />
       </section>
     </>
   );
