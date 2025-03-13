@@ -1,7 +1,9 @@
 const AlertTxt = ({ text }) => {
   return (
     <>
-      <h2 className="py-3 font-medium text-lg">{text}</h2>
+      <h2 className="py-1 my-2 font-medium text-sm text-white rounded-lg bg-red-600">
+        {text}
+      </h2>
     </>
   );
 };
