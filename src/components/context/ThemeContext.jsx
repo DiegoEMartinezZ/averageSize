@@ -10,10 +10,12 @@ export const ThemeProvider = ({ children }) => {
 
   const handleView = (page) => {
     navigate(page);
+    setAdd(false);
   };
 
   const iconHandleView = (page) => {
     navigate(page);
+    setAdd(false);
   };
 
   // useRef() to select all the content inside an input when clicked
@@ -60,12 +62,14 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Add the short link created
+  const [addMessage, setAddMessage] = useState(false);
   const [add, setAdd] = useState(false);
   const addHandler = () => {
     console.log("Se agrego el link creado!");
+    setAddMessage(true);
     setAdd(true);
     setTimeout(() => {
-      setAdd(false);
+      setAddMessage(false);
     }, 2000);
   };
 
@@ -140,6 +144,7 @@ export const ThemeProvider = ({ children }) => {
         copyHandler,
         editHandler,
         edit,
+        addMessage,
         add,
         addHandler,
         bigLink,

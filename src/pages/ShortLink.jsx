@@ -19,7 +19,7 @@ import Subtitle from "../UI/texts/Subtitle";
 import IconCRUD from "../UI/buttons/IconCRUD";
 
 const ShortLink = () => {
-  const { copied, copyHandler, addHandler, add, addMessage } = useTheme();
+  const { copied, copyHandler, addHandler, addMessage } = useTheme();
 
   return (
     <>
@@ -44,7 +44,9 @@ const ShortLink = () => {
             <IconCopy icon={faCopy} handler={copyHandler} />
             <IconNavigate page={"/home"} icon={faRotateLeft} />
           </div>
-          {add && <Copied icon={faChartSimple} text={"Check your links :)"} />}
+          {addMessage && (
+            <Copied icon={faChartSimple} text={"Check your links :)"} />
+          )}
         </div>
       </section>
 
