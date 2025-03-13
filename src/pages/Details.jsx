@@ -17,12 +17,10 @@ import Date from "../UI/lists/Date";
 import { faX } from "@fortawesome/free-solid-svg-icons/faX";
 import IconCopy from "../UI/buttons/IconCopy";
 import Copied from "../UI/alerts/Copied";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "../components/context/ThemeContext";
 import PageView from "../UI/texts/PageView";
-import Paragraph from "../UI/texts/Paragraph";
-import AlertTxt from "../UI/texts/AlertTxt";
 import EditOriginalLink from "../UI/lists/EditOriginalLink";
+import ScreenAlert from "../UI/alerts/ScreenAlert";
 
 const Details = () => {
   const {
@@ -35,8 +33,6 @@ const Details = () => {
     deleteLink,
     updateLink,
     isDisable,
-    deleteShortLink,
-    notDeleteShortLink,
     toDelete,
     editLink,
     showQR,
@@ -59,32 +55,7 @@ const Details = () => {
             <Date text={"Last Update"} date={"DD-MM-YYYY"} />
             <EditOriginalLink text={"Original Link"} icon={faPen} />
 
-            {toDelete && (
-              <section className="bg-red-400/80 z-10 absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center">
-                <div className="absolute bg-yellow-400 border-2 border-white rounded-xl p-4 mx-12">
-                  <FontAwesomeIcon
-                    icon={faTriangleExclamation}
-                    className="text-3xl my-1"
-                  />
-                  <Paragraph
-                    text={"Are you sure you want to delete this link? :("}
-                  />
-                  <AlertTxt text={"This action cannot be undone"} />
-                  <div className="mt-5 mx-5 flex justify-around items-center text-lg">
-                    <FontAwesomeIcon
-                      icon={faCheck}
-                      onClick={deleteShortLink}
-                      className="mx-3 cursor-pointer"
-                    />
-                    <FontAwesomeIcon
-                      icon={faX}
-                      onClick={notDeleteShortLink}
-                      className="mx-3 cursor-pointer"
-                    />
-                  </div>
-                </div>
-              </section>
-            )}
+            {toDelete && <ScreenAlert />}
 
             <div className="flex-col items-center justify-around flex-nowrap my-10">
               <h2 className="my-1 text-sm font-medium"> Short link options </h2>
