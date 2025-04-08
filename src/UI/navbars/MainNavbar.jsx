@@ -1,13 +1,11 @@
-import { faChartSimple } from "@fortawesome/free-solid-svg-icons";
 import IconNavigate from "../buttons/IconNavigate";
-import { useTheme } from "../../components/context/ThemeContext";
+import { FaChartSimple } from "react-icons/fa6";
 
 const MainNavBar = () => {
-  const { add } = useTheme();
   return (
     <>
       <nav className="absolute top-0 right-0 p-7">
-        {add && <IconNavigate page={"/general"} icon={faChartSimple} />}
+        <IconNavigate page={"/general"} icon={FaChartSimple} />
       </nav>
     </>
   );

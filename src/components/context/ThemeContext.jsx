@@ -1,6 +1,7 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
+import userDB, { initializeLocalStorage } from "../../tests/userDB";
 
 const ThemeContext = createContext();
 
@@ -10,12 +11,17 @@ export const ThemeProvider = ({ children }) => {
 
   const handleView = (page) => {
     navigate(page);
-    setAdd(false);
   };
 
   const iconHandleView = (page) => {
     navigate(page);
-    setAdd(false);
+  };
+
+  // Title for the new link created
+  const [titleLink, setTitleLink] = useState("My website");
+
+  const handleTitleLink = (e) => {
+    setTitleLink(e.target.value);
   };
 
   // useRef() to select all the content inside an input when clicked
@@ -27,7 +33,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Handle to add a new url
-  const [bigLink, setBigLink] = useState("www.original-link.com");
+  const [bigLink, setBigLink] = useState("");
+
   const newURL = (e) => {
     setBigLink(e.target.value);
   };
@@ -38,7 +45,7 @@ export const ThemeProvider = ({ children }) => {
     e.preventDefault();
     if (validator.isURL(bigLink)) {
       setError("");
-      navigate("/short");
+      navigate("/new-link");
     } else {
       setError("Please enter a valid link.");
       setTimeout(() => {
@@ -47,27 +54,144 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
-  // Copy the short link created
-  const [copied, setCopied] = useState(false);
-  const [shortURL, setShortURL] = useState("www.short.com");
+  // Handle to submit a valid email that was register in the DB
 
-  const copyHandler = async () => {
-    try {
-      await navigator.clipboard.writeText(shortURL);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (error) {
-      console.error("failed to copy text:", error);
+  const [errorEmail, setErrorEmail] = useState("");
+  const [email, setEmail] = useState("");
+  const [clientName, setClientName] = useState("User");
+
+  // Handle to email input
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  // Check the DB to find the email registered
+
+  const findByEmail = (email) => {
+    return userDB.some((oneEmail) => oneEmail.email === email);
+  };
+
+  // change the client name to the one that log in
+  const findNameByEmail = (email) => {
+    const client = userDB.find((oneEmail) => oneEmail.email === email);
+    if (client) {
+      setClientName(client.name);
     }
   };
 
-  // Add the short link created
+  const [currentEmailLogIn, setCurrentEmailLogIn] = useState("");
+
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    switch (true) {
+      case !validator.isEmail(email):
+        setErrorEmail("Please enter a valid email.");
+        break;
+
+      case !findByEmail(email):
+        setErrorEmail("Email not found.");
+        break;
+
+      default:
+        const userIndex = localUserDB.findIndex((user) => user.email === email);
+        setUserIdx(userIndex);
+        setCurrentEmailLogIn(email);
+        setEmail("");
+        setErrorEmail("");
+        findNameByEmail(email);
+        navigate("/home");
+        return;
+    }
+
+    setTimeout(() => {
+      setErrorEmail("");
+    }, 2000);
+  };
+
+  // Copy the short link created
+
+  const [copied, setCopied] = useState(false);
+
+  // Creating a new Link with the Pollos Hermanos Standards
+
+  const BASE_URL = "https://asize.netlify.app/";
+  const [shortLink, setShortLink] = useState(() => {
+    const characters =
+      "23456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz";
+    const lengthShortLink = 7;
+    let result = "";
+
+    for (let i = 0; i < lengthShortLink; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return `${BASE_URL}${result}`;
+  });
+
+  const copyHandler = async () => {
+    try {
+      await navigator.clipboard.writeText(shortLink);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (error) {}
+  };
+
+  // localStorage to save links created by user (Testing)
+
+  const [localUserDB, setLocalUserDB] = useState(() =>
+    initializeLocalStorage()
+  );
+  const [userLinks, setUserLinks] = useState([]);
+  const [userIdx, setUserIdx] = useState();
+
+  useEffect(() => {
+    localStorage.setItem("userDB", JSON.stringify(localUserDB));
+  }, [localUserDB]);
+  // Add the short link created to the DB
+
+  const addNewLink = (userEmail, linkData) => {
+    const userIndex = localUserDB.findIndex((user) => user.email === userEmail);
+
+    if (userIndex !== -1) {
+      const newLink = {
+        id: `link${Date.now()}`, // Generate unique ID
+        title: linkData.title || `${titleLink}${count}`,
+        originalLink: linkData.originalLink,
+        shortLink: linkData.shortLink,
+        createdAt: new Date().toISOString().split("T")[0],
+        clicks: 0,
+        uniqueVisitors: 0,
+      };
+
+      const updatedDB = [...localUserDB];
+      updatedDB[userIndex].links.push(newLink);
+      updatedDB[userIndex].totalLinks++;
+
+      // Update localstorage
+      localStorage.setItem("userDB", JSON.stringify(updatedDB));
+
+      setLocalUserDB(updatedDB);
+      setUserLinks([...updatedDB[userIndex].links]);
+      setUserIdx(userIndex);
+
+      return newLink;
+    }
+
+    return null; // Return null to avoid rendering anything here
+  };
+
+  let count = 0;
   const [addMessage, setAddMessage] = useState(false);
-  const [add, setAdd] = useState(false);
   const addHandler = () => {
-    console.log("Se agrego el link creado!");
+    count++;
     setAddMessage(true);
-    setAdd(true);
+    const newLinkData = {
+      title: "",
+      originalLink: bigLink,
+      shortLink: shortLink,
+    };
+    addNewLink(currentEmailLogIn, newLinkData);
     setTimeout(() => {
       setAddMessage(false);
     }, 2000);
@@ -89,6 +213,8 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
+  // Date of short link creation (Last created)
+
   // Btn to show the QR Code of the selected short link
   const [showQRCode, setShowQRCode] = useState(false);
 
@@ -103,8 +229,8 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Update the short link name, the disable the input
-  const newShortURL = (e) => {
-    setShortURL(e.target.value);
+  const newShortLink = (e) => {
+    setShortLink(e.target.value);
   };
 
   // Disable the input when short link is edited
@@ -130,9 +256,22 @@ export const ThemeProvider = ({ children }) => {
   return (
     <ThemeContext.Provider
       value={{
-        newShortURL,
+        userLinks,
+        localUserDB,
+        userIdx,
+        setUserIdx,
+        currentEmailLogIn,
+        addNewLink,
+        clientName,
+        titleLink,
+        handleTitleLink,
+        handleEmail,
+        handleLogIn,
+        email,
+        errorEmail,
+        newShortLink,
         isDisable,
-        shortURL,
+        shortLink,
         deleteLink,
         deleteShortLink,
         notDeleteShortLink,
@@ -145,7 +284,6 @@ export const ThemeProvider = ({ children }) => {
         editHandler,
         edit,
         addMessage,
-        add,
         addHandler,
         bigLink,
         inputRef,

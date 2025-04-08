@@ -1,9 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useTheme } from "../../components/context/ThemeContext";
-import { faCheck, faX } from "@fortawesome/free-solid-svg-icons";
+import { IoMdClose } from "react-icons/io";
 import Errors from "../alerts/Errors";
 
-const EditOriginalLink = ({ text, icon }) => {
+const EditOriginalLink = ({ text, icon: Icon }) => {
   const {
     bigLink,
     inputRef,
@@ -27,7 +26,7 @@ const EditOriginalLink = ({ text, icon }) => {
                     Edit original Link
                   </h1>
                   <button className="my-2 cursor-pointer">
-                    <FontAwesomeIcon icon={faCheck} />
+                    <Icon />
                   </button>
                 </div>
                 <input
@@ -41,12 +40,11 @@ const EditOriginalLink = ({ text, icon }) => {
                   } text-xs flex border-1 p-1 rounded-lg w-auto px-10 text-center`}
                 />
 
-                {error && <Errors icon={faX} text={error} />}
+                {error && <Errors icon={IoMdClose} text={error} />}
               </form>
             </section>
           ) : (
-            <FontAwesomeIcon
-              icon={icon}
+            <Icon
               onClick={editHandler}
               className={`${edit ? "hidden" : "block"} cursor-pointer`}
             />

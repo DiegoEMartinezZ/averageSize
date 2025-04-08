@@ -10,7 +10,7 @@ const Footer = ({ year }) => {
   return (
     <>
       <footer>
-        <section className="absolute bottom-0 right-0 left-0 py-7 px-3">
+        <section className="absolute bottom-0 right-0 left-0 py-7 px-3 w-72 m-auto">
           <div className="flex flex-nowrap justify-around mx-10 my-0.5">
             <SocialMedia
               url={"https://www.linkedin.com/in/diegomz/"}

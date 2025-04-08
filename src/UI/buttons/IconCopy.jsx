@@ -1,13 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const IconCopy = ({ icon, handler }) => {
+const IconCopy = ({ icon: Icon, handler }) => {
   return (
     <>
-      <FontAwesomeIcon
-        icon={icon}
-        onClick={handler}
-        className="cursor-pointer"
-      />
+      <Icon onClick={handler} className="cursor-pointer mx-4" />
     </>
   );
 };

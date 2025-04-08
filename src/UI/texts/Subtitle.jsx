@@ -1,8 +1,8 @@
-const Subtitle = ({ txt }) => {
+const Subtitle = ({ text }) => {
   return (
     <>
-      <h2 className="uppercase text-sm w-fit m-auto -my-1 font-bold p-1">
-        {txt}
+      <h2 className="uppercase text-xs w-fit m-auto -my-3 font-light  text-averagesize-black/50  p-2  rounded-lg">
+        {text}
       </h2>
     </>
   );

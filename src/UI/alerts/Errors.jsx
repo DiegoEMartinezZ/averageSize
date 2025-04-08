@@ -1,10 +1,8 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const Errors = ({ icon, text }) => {
+const Errors = ({ icon: Icon, text }) => {
   return (
     <>
-      <p className="absolute right-0 left-0 top-36 bg-red-400 my-1 text-sm font-sm p-1 w-52 m-auto rounded-sm">
-        <FontAwesomeIcon icon={icon} className="mr-2" />
+      <p className="absolute flex justify-center items-center right-0 left-0 top-36 bg-red-400 my-1 text-sm font-sm p-1 w-52 m-auto rounded-sm">
+        <Icon className="mr-2 block text-lg" />
         {text}
       </p>
     </>

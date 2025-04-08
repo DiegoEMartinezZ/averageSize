@@ -1,1 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Roboto", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  --color-averagesize-black: #1e1e1e;
+  --color-averagesize-white: #fff;
+  --color-averagesize-green: #a6fbac;
+  --color-averagesize-red: #fb889b;
+  --color-averagesize-yellow: #f9d486;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+}

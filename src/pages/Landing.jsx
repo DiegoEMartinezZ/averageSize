@@ -1,18 +1,17 @@
-import { faChartSimple, faLink } from "@fortawesome/free-solid-svg-icons";
-import TitleAS from "../UI/texts/TitleAS";
+import { IoIosLink } from "react-icons/io";
 import SloganAS from "../UI/texts/SloganAS";
 import BtnNavigate from "../UI/buttons/BtnNavigate";
 import Footer from "../components/Footer";
-import MainNavBar from "../UI/navbars/MainNavbar";
+import MainTitle from "../UI/texts/MainTitle";
+
 const Landing = () => {
   return (
     <>
-      <MainNavBar icon={faChartSimple} />
-      <section className="flex items-center justify-center h-screen bg-gray-100">
+      <section className="flex items-center justify-center h-screen bg-averagesize-white">
         <div className="p-6 text-center">
-          <TitleAS text={"Average Size"} />
+          <MainTitle version={"V1.0.0"} />
           <SloganAS text={"Short link, long reach."} />
-          <BtnNavigate page={"/home"} icon={faLink} text={"Start"} />
+          <BtnNavigate page={"/login"} icon={IoIosLink} text={"Start"} />
         </div>
       </section>
       <Footer year={"2025"} />
