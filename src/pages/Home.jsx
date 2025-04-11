@@ -17,7 +17,7 @@ const Home = () => {
     newURL,
     handleSubmit,
     error,
-    clientName,
+    userName,
   } = useTheme();
 
   return (
@@ -26,7 +26,7 @@ const Home = () => {
       <section className="flex items-center justify-center h-screen bg-averagesize-white">
         <div className="p-6 text-center">
           <MainTitle version={"V1.0.0"} />
-          <SloganAS text={`Welcome, ${clientName}`} />
+          <SloganAS text={`Welcome, ${userName}`} />
           <form onSubmit={handleSubmit}>
             <div className="mt-12">
               <Label text={"Paste the Link to be shortened."} />
