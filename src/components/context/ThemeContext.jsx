@@ -19,7 +19,6 @@ export const ThemeProvider = ({ children }) => {
 
   // Title for the new link created
   const [titleLink, setTitleLink] = useState("My website");
-
   const handleTitleLink = (e) => {
     setTitleLink(e.target.value);
   };
@@ -58,7 +57,7 @@ export const ThemeProvider = ({ children }) => {
 
   const [errorEmail, setErrorEmail] = useState("");
   const [email, setEmail] = useState("");
-  const [clientName, setClientName] = useState("User");
+  const [userName, setUserName] = useState("User");
 
   // Handle to email input
   const handleEmail = (e) => {
@@ -75,7 +74,7 @@ export const ThemeProvider = ({ children }) => {
   const findNameByEmail = (email) => {
     const client = userDB.find((oneEmail) => oneEmail.email === email);
     if (client) {
-      setClientName(client.name);
+      setUserName(client.name);
     }
   };
 
@@ -173,6 +172,7 @@ export const ThemeProvider = ({ children }) => {
 
       setLocalUserDB(updatedDB);
       setUserLinks([...updatedDB[userIndex].links]);
+      console.log(userLinks);
       setUserIdx(userIndex);
 
       return newLink;
@@ -262,7 +262,8 @@ export const ThemeProvider = ({ children }) => {
         setUserIdx,
         currentEmailLogIn,
         addNewLink,
-        clientName,
+        userName,
+        setUserName,
         titleLink,
         handleTitleLink,
         handleEmail,
@@ -294,6 +295,7 @@ export const ThemeProvider = ({ children }) => {
         error,
         showQR,
         showQRCode,
+        navigate,
       }}
     >
       {children}
