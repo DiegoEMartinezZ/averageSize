@@ -1,11 +1,8 @@
 import { Navigate } from "react-router-dom";
-import { useTheme } from "./components/context/ThemeContext";
+import { getUserById } from "./service/UserService";
 
 const ProtectedRoute = ({ children }) => {
-  const { localUserDB, userIdx } = useTheme();
-
-  const isValidUser =
-    localUserDB && userIdx !== undefined && localUserDB[userIdx] !== undefined;
+  const isValidUser = getUserById !== undefined;
 
   if (!isValidUser) {
     return <Navigate to={"/login"} replace />;

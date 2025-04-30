@@ -1,7 +1,18 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import validator from "validator";
-import userDB, { initializeLocalStorage } from "../../tests/userDB";
+
+import {
+  getAllUsers,
+  getUserByEmail,
+  createUser,
+} from "../../service/UserService";
+import {
+  getAllLinksByUserId,
+  createLink,
+  deleteLink,
+} from "../../service/LinkService";
+import { getAllClicks, findClicksByLinkId } from "../../service/ClickService";
 
 const ThemeContext = createContext();
 
@@ -66,45 +77,45 @@ export const ThemeProvider = ({ children }) => {
 
   // Check the DB to find the email registered
 
-  const findByEmail = (email) => {
-    return userDB.some((oneEmail) => oneEmail.email === email);
-  };
-
-  // change the client name to the one that log in
-  const findNameByEmail = (email) => {
-    const client = userDB.find((oneEmail) => oneEmail.email === email);
-    if (client) {
-      setUserName(client.name);
+  const findByEmail = async (email) => {
+    try {
+      const user = await getUserByEmail(email);
+      console.log(user);
+      return user;
+    } catch (error) {
+      console.error("Error finding user:", error);
+      return null;
     }
   };
 
   const [currentEmailLogIn, setCurrentEmailLogIn] = useState("");
 
-  const handleLogIn = (e) => {
+  const handleLogIn = async (e) => {
     e.preventDefault();
-    switch (true) {
-      case !validator.isEmail(email):
-        setErrorEmail("Please enter a valid email.");
-        break;
 
-      case !findByEmail(email):
-        setErrorEmail("Email not found.");
-        break;
-
-      default:
-        const userIndex = localUserDB.findIndex((user) => user.email === email);
-        setUserIdx(userIndex);
-        setCurrentEmailLogIn(email);
-        setEmail("");
-        setErrorEmail("");
-        findNameByEmail(email);
-        navigate("/home");
-        return;
+    if (!validator.isEmail(email)) {
+      setErrorEmail("Please enter a valid email.");
+      setTimeout(() => setErrorEmail(""), 2000);
+      return;
     }
 
-    setTimeout(() => {
+    try {
+      const user = await findByEmail(email);
+      if (!user) {
+        setErrorEmail("Email not found.");
+        setTimeout(() => setErrorEmail(""), 2000);
+        return;
+      }
+
+      setUserName(user.name);
+      setCurrentEmailLogIn(email);
+      setEmail("");
       setErrorEmail("");
-    }, 2000);
+      navigate("/home");
+    } catch (error) {
+      setErrorEmail("Error logging in");
+      setTimeout(() => setErrorEmail(""), 2000);
+    }
   };
 
   // Copy the short link created
@@ -138,15 +149,9 @@ export const ThemeProvider = ({ children }) => {
 
   // localStorage to save links created by user (Testing)
 
-  const [localUserDB, setLocalUserDB] = useState(() =>
-    initializeLocalStorage()
-  );
   const [userLinks, setUserLinks] = useState([]);
   const [userIdx, setUserIdx] = useState();
 
-  useEffect(() => {
-    localStorage.setItem("userDB", JSON.stringify(localUserDB));
-  }, [localUserDB]);
   // Add the short link created to the DB
 
   const addNewLink = (userEmail, linkData) => {
@@ -257,7 +262,8 @@ export const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider
       value={{
         userLinks,
-        localUserDB,
+        // localUserDB,
+        navigate,
         userIdx,
         setUserIdx,
         currentEmailLogIn,
@@ -295,7 +301,6 @@ export const ThemeProvider = ({ children }) => {
         error,
         showQR,
         showQRCode,
-        navigate,
       }}
     >
       {children}
