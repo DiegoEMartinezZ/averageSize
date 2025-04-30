@@ -8,14 +8,8 @@ import { IoIosArrowBack } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { PiChartBarThin } from "react-icons/pi";
 import MainTitle from "../UI/texts/MainTitle";
-import { useTheme } from "../components/context/ThemeContext";
 
 const Stats = () => {
-  const { localUserDB, userIdx } = useTheme();
-
-  const positionRecentLink = localUserDB[userIdx]?.links.length - 1;
-  const mostRecentLinkCreated = localUserDB[userIdx]?.links[positionRecentLink];
-  const mostRecentDate = mostRecentLinkCreated?.createdAt || "No links created";
   return (
     <>
       <section className="flex items-center justify-center h-screen bg-gray-100">
@@ -25,16 +19,10 @@ const Stats = () => {
 
           <BtnNavigate icon={CiSearch} page={"/links"} text={"Show My Links"} />
           <ul className="my-8 -mx-8">
-            <Count
-              text={"Total times clicked"}
-              count={localUserDB[userIdx].totalLinks}
-            />
-            <Count
-              text={"Short links created"}
-              count={localUserDB[userIdx].links.length}
-            />
+            <Count text={"Total times clicked"} count={0} />
+            <Count text={"Short links created"} count={0} />
             <Count text={"Unique visitors"} count={0} />
-            <Date text={"Last Created"} date={mostRecentDate} />
+            <Date text={"Last Created"} date={"DD-MM-YYYY"} />
             <Date text={"Last Updated"} date={"DD-MM-YYYY"} />
           </ul>
           <IconNavigate page={"/home"} icon={IoIosArrowBack} />
