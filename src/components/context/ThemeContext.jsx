@@ -25,6 +25,10 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const iconHandleView = (page) => {
+    setUserName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
     navigate(page);
   };
 
@@ -65,14 +69,39 @@ export const ThemeProvider = ({ children }) => {
   };
 
   // Handle to submit a valid email that was register in the DB
-
-  const [errorEmail, setErrorEmail] = useState("");
-  const [email, setEmail] = useState("");
+  // Name states
   const [userName, setUserName] = useState("User");
+  const [errorName, setErrorName] = useState("");
+  // email states
+  const [email, setEmail] = useState("");
+  const [errorEmail, setErrorEmail] = useState("");
+  // password states
+  const [password, setPassword] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  // Handle to name input
+  const handleName = (e) => {
+    setUserName(e.target.value);
+  };
 
   // Handle to email input
   const handleEmail = (e) => {
     setEmail(e.target.value);
+  };
+
+  // Handle to password input
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  // handle to confirm password
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
   };
 
   // Check the DB to find the email registered
@@ -80,7 +109,6 @@ export const ThemeProvider = ({ children }) => {
   const findByEmail = async (email) => {
     try {
       const user = await getUserByEmail(email);
-      console.log(user);
       return user;
     } catch (error) {
       console.error("Error finding user:", error);
@@ -114,6 +142,68 @@ export const ThemeProvider = ({ children }) => {
       navigate("/home");
     } catch (error) {
       setErrorEmail("Error logging in");
+      setTimeout(() => setErrorEmail(""), 2000);
+    }
+  };
+
+  // Create new user if the email is not registered in the DB
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    // email cannot be empty
+    if (email === "") {
+      setErrorEmail("Email cannot be empty.");
+      setTimeout(() => setErrorEmail(""), 2000);
+      return;
+    }
+
+    // First validate email
+    if (!validator.isEmail(email)) {
+      setErrorEmail("Please enter a valid email.");
+      setTimeout(() => setErrorEmail(""), 2000);
+      return;
+    }
+
+    // Then validate password match
+    if (password !== confirmPassword) {
+      setErrorPassword("Passwords don't match!");
+      setTimeout(() => setErrorPassword(""), 2000);
+      return;
+    }
+
+    // Validate password strength
+    if (password.length < 6) {
+      setErrorPassword("Password must be at least 6 characters long");
+      setTimeout(() => setErrorPassword(""), 2000);
+      return;
+    }
+
+    try {
+      const user = await findByEmail(email);
+
+      if (user && user.email === email) {
+        setErrorEmail("Email already in use.");
+        setTimeout(() => setErrorEmail(""), 2000);
+        return;
+      }
+
+      // If all validations pass, create new user
+      const newUser = {
+        userName,
+        email,
+        password,
+      };
+
+      await createUser(newUser);
+      setUserName("" || "User");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      navigate("/home");
+    } catch (error) {
+      console.error("Error creating user:", error);
+      setErrorEmail("Error creating account");
       setTimeout(() => setErrorEmail(""), 2000);
     }
   };
@@ -263,16 +353,21 @@ export const ThemeProvider = ({ children }) => {
       value={{
         userLinks,
         // localUserDB,
+        handleSignUp,
         navigate,
         userIdx,
         setUserIdx,
         currentEmailLogIn,
         addNewLink,
+        handleName,
         userName,
         setUserName,
         titleLink,
         handleTitleLink,
         handleEmail,
+        handlePassword,
+        handleConfirmPassword,
+        password,
         handleLogIn,
         email,
         errorEmail,
@@ -299,6 +394,12 @@ export const ThemeProvider = ({ children }) => {
         newURL,
         handleSubmit,
         error,
+        showPassword,
+        showConfirmPassword,
+        setShowConfirmPassword,
+        setShowPassword,
+        errorPassword,
+        confirmPassword,
         showQR,
         showQRCode,
       }}

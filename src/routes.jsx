@@ -1,16 +1,18 @@
 import Landing from "./pages/Landing";
-import Login from "./pages/Login";
 import Details from "./pages/Details";
 import Home from "./pages/Home";
 import Stats from "./pages/Stats";
 import NewLink from "./pages/NewLink";
 import AllLinks from "./pages/AllLinks";
-import ProtectedRoute from "./ProtectedRoute";
 import { Navigate } from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import LoginTest from "./pages/LoginTest";
+import Register from "./pages/Register";
 
 const routes = [
   { path: "/", element: <Landing /> },
-  { path: "/login", element: <Login /> },
+  { path: "/login", element: <LoginTest /> },
+  { path: "/register", element: <Register /> },
   {
     path: "/home",
     element: (
@@ -56,7 +58,7 @@ const routes = [
     ),
   },
   // Catch all unmatched routes
-  { path: "*", element: <Navigate to={"/login"} replace /> },
+  { path: "*", element: <Navigate to={"/loginTest"} replace /> },
 ];
 
 export default routes;
