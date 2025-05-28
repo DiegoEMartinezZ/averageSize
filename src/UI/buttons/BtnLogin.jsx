@@ -9,8 +9,8 @@ const BtnLogin = ({ text }) => {
         type="submit"
         onClick={handleLogIn}
         className={`${
-          email.length <= 0 ? "opacity-0" : "opacity-100"
-        } cursor-pointer text-sm bg-averagesize-yellow  py-1 px-2 m-auto rounded-lg flex justify-center items-center`}
+          email.length <= 0 ? "opacity-50" : "opacity-100"
+        } cursor-pointer text-sm bg-averagesize-yellow  py-1 px-2 my-3 m-auto rounded-lg flex justify-center items-center`}
       >
         <CiLogin className="mr-1" />
         <h1> {text} </h1>

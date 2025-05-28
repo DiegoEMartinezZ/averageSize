@@ -7,10 +7,12 @@ import { IoMdClose } from "react-icons/io";
 import BtnLogin from "../UI/buttons/BtnLogin";
 import MainTitle from "../UI/texts/MainTitle";
 import { useState } from "react";
+import BtnRegister from "../UI/buttons/BtnRegister";
+import axios from "axios";
 
-const Login = () => {
+const LoginTest = () => {
   const { login } = useSession();
-  const { errorEmail } = useTheme();
+  const { errorEmail, email } = useTheme();
 
   const [error, setError] = useState("");
 
@@ -43,13 +45,16 @@ const Login = () => {
     <>
       <section className="flex items-center justify-center h-screen bg-averagesize-white">
         <div className="p-6 text-center">
-          <MainTitle version={"V1.0.0"} />
+          <MainTitle version={"Login form"} />
 
           <form onSubmit={handleForm}>
             <InputEmail text={"Enter your register email :)"} />
             <BtnLogin text={"Login"} />
             {errorEmail && <Errors icon={IoMdClose} text={errorEmail} />}
           </form>
+          <div className="absolute top-0 right-0 p-4">
+            <BtnRegister page={"/register"} text={"New User"} />
+          </div>
         </div>
       </section>
       <Footer year={"2025"} />
@@ -57,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginTest;
